@@ -24,7 +24,9 @@ import {
   Tooltip,
   Pagination,
   Dialog,
-  MessageBox
+  Tag,
+  MessageBox,
+  Tree
 } from 'element-ui'
 
 Vue.use(Button)
@@ -50,6 +52,8 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree)
 // 将弹框组件挂载到vue的原型对象上，每个组件都可访问$message
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
