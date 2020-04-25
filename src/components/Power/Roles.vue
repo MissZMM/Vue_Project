@@ -121,6 +121,7 @@ export default {
     },
     // 展开分配权限对话框
     showsetRightDialog: async function (role) {
+      // 保存当前选中角色的ID值，留待提交分配角色请求时使用
       this.roleId = role.id
       const { data: res } = await this.$http.get('rights/tree')
       this.rightList = res.data
@@ -144,14 +145,18 @@ export default {
     },
     // 点击为角色分配权限
     allotRights: async function () {
+      // 通过树结构引用拿到所有全选和半选状态下的key
       const keys = [...this.$refs.treeRef.getCheckedKeys(),
         ...this.$refs.treeRef.getHalfCheckedKeys()]
-      // console.log(keys)
+      // 将keys以文档要求的字符串形式保存
       const idStr = keys.join(',')
+      // 提交请求，为角色分配权限
       const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, { rids: idStr })
       if (res.meta.status !== 200) return this.$message.error('分配权限失败！')
       this.$message.success('分配权限成功')
+      // 刷新当前页面
       this.getRolesList()
+      // 分配完角色，关闭窗口
       this.setRightDialogVisible = false
     }
   }
